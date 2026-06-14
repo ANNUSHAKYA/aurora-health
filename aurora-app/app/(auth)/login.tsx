@@ -8,8 +8,10 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { router } from 'expo-router'
 import { supabase } from '../../lib/supabase'
 import { Colors } from '../../constants/colors'
+import { useUserStore } from '../../store/userStore'
 
 export default function Login() {
+  const { setUserId, setAuthenticated } = useUserStore()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -28,6 +30,7 @@ export default function Login() {
       router.replace('/(tabs)')
     }
   }
+
 
   return (
     <LinearGradient colors={['#0A0A1A', '#0D0D2B']} style={styles.container}>
@@ -110,7 +113,21 @@ export default function Login() {
           <TouchableOpacity style={styles.socialBtn} activeOpacity={0.8}>
             <Text style={styles.socialBtnText}>🍎  Continue with Apple</Text>
           </TouchableOpacity>
+
+          {/* Bypass Auth */}
+          <TouchableOpacity
+            style={[styles.socialBtn, { borderColor: '#6C63FF', borderStyle: 'dashed' }]}
+            activeOpacity={0.8}
+            onPress={() => {
+              setUserId('mock-user-123')
+              setAuthenticated(true)
+              router.replace('/(tabs)')
+            }}
+          >
+            <Text style={[styles.socialBtnText, { color: '#8B85FF' }]}>⚡  Bypass Auth (Demo Mode)</Text>
+          </TouchableOpacity>
         </View>
+
 
         {/* Footer */}
         <TouchableOpacity

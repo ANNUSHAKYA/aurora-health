@@ -8,12 +8,15 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { router } from 'expo-router'
 import { supabase } from '../../lib/supabase'
 import { Colors } from '../../constants/colors'
+import { useUserStore } from '../../store/userStore'
 
 export default function Signup() {
+  const { setUserId, setAuthenticated } = useUserStore()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+
 
   const handleSignup = async () => {
     if (!name || !email || !password) {
@@ -121,7 +124,21 @@ export default function Signup() {
                 }
               </LinearGradient>
             </TouchableOpacity>
+
+            {/* Bypass Auth */}
+            <TouchableOpacity
+              style={[styles.socialBtn, { borderColor: '#6C63FF', borderStyle: 'dashed', marginTop: 12 }]}
+              activeOpacity={0.8}
+              onPress={() => {
+                setUserId('mock-user-123')
+                setAuthenticated(true)
+                router.replace('/(onboarding)/personal')
+              }}
+            >
+              <Text style={[styles.socialBtnText, { color: '#8B85FF' }]}>⚡  Bypass Auth (Demo Mode)</Text>
+            </TouchableOpacity>
           </View>
+
 
           <TouchableOpacity
             onPress={() => router.push('/(auth)/login')}
@@ -201,5 +218,18 @@ const styles = StyleSheet.create({
   footerLink: {
     color: Colors.primary,
     fontFamily: 'Inter_600SemiBold',
+  },
+  socialBtn: {
+    borderWidth: 1,
+    borderColor: Colors.border,
+    borderRadius: 14,
+    paddingVertical: 16,
+    alignItems: 'center',
+    backgroundColor: Colors.bgCard,
+  },
+  socialBtnText: {
+    fontSize: 15,
+    fontFamily: 'Inter_500Medium',
+    color: Colors.textPrimary,
   },
 })
