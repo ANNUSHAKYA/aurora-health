@@ -22,14 +22,20 @@ export default function Login() {
       return
     }
     setLoading(true)
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-    setLoading(false)
-    if (error) {
-      Alert.alert('Login Failed', error.message)
-    } else {
-      router.replace('/(tabs)')
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password })
+      setLoading(false)
+      if (error) {
+        Alert.alert('Login Failed', error.message)
+      } else {
+        router.replace('/(tabs)')
+      }
+    } catch (err: any) {
+      setLoading(false)
+      Alert.alert('Login Error', err.message || 'An unexpected error occurred')
     }
   }
+
 
 
   return (

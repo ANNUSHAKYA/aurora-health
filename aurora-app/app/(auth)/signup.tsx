@@ -29,24 +29,30 @@ export default function Signup() {
     }
 
     setLoading(true)
-    const { data, error } = await supabase.auth.signUp({ email, password })
-    if (error) {
+    try {
+      const { data, error } = await supabase.auth.signUp({ email, password })
+      if (error) {
+        setLoading(false)
+        Alert.alert('Signup Failed', error.message)
+        return
+      }
+
+      // Save name to profile
+      if (data.user) {
+        await supabase
+          .from('profiles')
+          .update({ name })
+          .eq('id', data.user.id)
+      }
+
       setLoading(false)
-      Alert.alert('Signup Failed', error.message)
-      return
+      router.replace('/(onboarding)/personal')
+    } catch (err: any) {
+      setLoading(false)
+      Alert.alert('Signup Error', err.message || 'An unexpected error occurred')
     }
-
-    // Save name to profile
-    if (data.user) {
-      await supabase
-        .from('profiles')
-        .update({ name })
-        .eq('id', data.user.id)
-    }
-
-    setLoading(false)
-    router.replace('/(onboarding)/personal')
   }
+
 
   return (
     <LinearGradient colors={['#0A0A1A', '#0D0D2B']} style={styles.container}>
