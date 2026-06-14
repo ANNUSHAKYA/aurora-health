@@ -1,0 +1,16 @@
+# Dependencies — all levels
+node_modules/
+
+# Expo
+.expo/
+dist/
+android/
+ios/
+
+# Secrets
+.env
+*.env.*
+
+# General
+.DS_Store
+*.log

@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "Aurora",
+    "slug": "aurora-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A0A1A"
+    },
+    "scheme": "aurora",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.aurora.health",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Aurora needs microphone access for voice conversations.",
+        "NSSpeechRecognitionUsageDescription": "Aurora uses speech recognition to understand your voice."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundColor": "#0A0A1A"
+      },
+      "package": "com.aurora.health",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Allow Aurora to use your microphone for voice input."
+        }
+      ]
+    ]
+  }
+}
