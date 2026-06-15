@@ -12,7 +12,9 @@
       "backgroundColor": "#0A0A1A"
     },
     "scheme": "aurora",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.aurora.health",
@@ -41,6 +43,12 @@
           "microphonePermission": "Allow Aurora to use your microphone for voice input."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "2371a8da-f9ed-4163-9001-6dceb561ca01"
+      }
+    }
   }
 }
